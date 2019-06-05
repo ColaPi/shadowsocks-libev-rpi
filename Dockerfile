@@ -4,6 +4,8 @@ ENV SS_VER 3.2.5
 ENV SS_URL https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar.gz
 ENV SS_DIR shadowsocks-libev-$SS_VER
 ENV V2RAY_VER 1.1.0
+ENV V2RAY_URL https://github.com/shadowsocks/v2ray-plugin/releases/download/v${V2RAY_VER}/v2ray-plugin-linux-amd64-v${V2RAY_VER}.tar.gz
+
 
 RUN set -ex \
     # Build environment setup
@@ -20,6 +22,7 @@ RUN set -ex \
     pcre-dev \
     curl \
     tar \
+    curl -sSL ${V2RAY_URL} | tar xz --strip 1 -C /usr/local/bin/  v2ray-plugin_linux_arm7 \
     && curl -sSL $SS_URL | tar xz \
     # Build & install
     && cd $SS_DIR \
@@ -39,8 +42,7 @@ RUN set -ex \
     $(scanelf --needed --nobanner /usr/bin/ss-* \
     | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
     | sort -u) \
-    && rm -rf /tmp/repo \
-    && curl -sSL https://github.com/shadowsocks/v2ray-plugin/releases/download/v${V2RAY_VER}/v2ray-plugin-linux-arm-v${V2RAY_VER}.tar.gz | tar xz --strip 1 -C /usr/local/bin/  v2ray-plugin_linux_arm7
+    && rm -rf /tmp/repo 
 
 USER nobody
 
