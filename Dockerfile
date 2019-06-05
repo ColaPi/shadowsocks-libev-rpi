@@ -22,7 +22,7 @@ RUN set -ex \
     pcre-dev \
     curl \
     tar \
-    && curl -sSL ${V2RAY_URL} | tar xz --strip 1 -C /usr/local/bin/  v2ray-plugin_linux_arm7 \
+    && curl -sSL ${V2RAY_URL} | tar xz -C /usr/local/bin/  v2ray-plugin_linux_arm7 \
     && curl -sSL $SS_URL | tar xz \
     # Build & install
     && cd $SS_DIR \

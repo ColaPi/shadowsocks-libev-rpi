@@ -7,6 +7,6 @@
     "fast_open": false,
     "reuse_port": true,
     "no_delay": true,
-    "plugin": "v2ray-plugin",
+    "plugin": "v2ray-plugin_linux_arm7",
     "plugin_opts": "server;host=mydomian.com;fast-open"
 }
