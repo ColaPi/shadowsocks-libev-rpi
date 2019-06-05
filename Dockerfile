@@ -40,9 +40,9 @@ RUN set -ex \
     | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
     | sort -u) \
     && rm -rf /tmp/repo \
-    && curl -sSL https://github.com/shadowsocks/v2ray-plugin/releases/download/v${V2RAY_VER}/v2ray-plugin-linux-arm-v${V2RAY_VER}.tar.gz | tar xz --strip 1 -C /usr/local/bin/  v2ray-plugin_linux_arm7 \
+    && curl -sSL https://github.com/shadowsocks/v2ray-plugin/releases/download/v${V2RAY_VER}/v2ray-plugin-linux-arm-v${V2RAY_VER}.tar.gz | tar xz --strip 1 -C /usr/local/bin/  v2ray-plugin_linux_arm7
 
-    USER nobody
+USER nobody
 
 CMD exec ss-server \
     -s $SERVER_ADDR \
