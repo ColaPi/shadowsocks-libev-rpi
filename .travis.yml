@@ -1,0 +1,24 @@
+sudo: true
+dist: trusty
+language: bash
+
+env:
+  IMAGE_NAME: colachen/shadowsocks-libev-rpi
+
+jobs:
+  include:
+    - stage: build image
+      script:
+        - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+            TAG=v`date +"%Y%m%d"`;
+            docker run --rm --privileged multiarch/qemu-user-static:register --reset;
+            docker build . -t $IMAGE_NAME:latest -t $IMAGE_NAME:$TAG;
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
+            docker push $IMAGE_NAME:$TAG;
+            docker push $IMAGE_NAME:latest;
+          fi
+
+    - stage: test image
+      script:
+        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+        - docker run --rm $IMAGE_NAME ss-server -h
