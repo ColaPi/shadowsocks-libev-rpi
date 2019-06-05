@@ -4,7 +4,7 @@ ENV SS_VER 3.2.5
 ENV SS_URL https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar.gz
 ENV SS_DIR shadowsocks-libev-$SS_VER
 ENV V2RAY_VER 1.1.0
-ENV V2RAY_URL https://github.com/shadowsocks/v2ray-plugin/releases/download/v${V2RAY_VER}/v2ray-plugin-linux-amd64-v${V2RAY_VER}.tar.gz
+ENV V2RAY_URL https://github.com/shadowsocks/v2ray-plugin/releases/download/v${V2RAY_VER}/v2ray-plugin-linux-arm-v${V2RAY_VER}.tar.gz
 
 
 RUN set -ex \
