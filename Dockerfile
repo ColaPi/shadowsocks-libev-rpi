@@ -26,7 +26,6 @@ RUN set -ex \
     && curl -sSL https://github.com/shadowsocks/ipset/archive/shadowsocks.tar.gz | tar xz --strip 1 -C libipset \
     && curl -sSL https://github.com/shadowsocks/libcork/archive/shadowsocks.tar.gz | tar xz --strip 1 -C libcork \
     && curl -sSL https://github.com/shadowsocks/libbloom/archive/master.tar.gz | tar xz --strip 1 -C libbloom \
-    $$ curl -sSL https://github.com/shadowsocks/v2ray-plugin/releases/download/v${V2RAY_VER}/v2ray-plugin-linux-arm-v${V2RAY_VER}.tar.gz | tar xz -C /usr/local/bin/v2ray-plugin_linux_arm7  v2ray-plugin_linux_arm7 \
     && ./autogen.sh \
     && ./configure --prefix=/usr --disable-documentation \
     && make install \
@@ -40,9 +39,10 @@ RUN set -ex \
     $(scanelf --needed --nobanner /usr/bin/ss-* \
     | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
     | sort -u) \
-    && rm -rf /tmp/repo
+    && rm -rf /tmp/repo \
+    && curl -sSL https://github.com/shadowsocks/v2ray-plugin/releases/download/v${V2RAY_VER}/v2ray-plugin-linux-arm-v${V2RAY_VER}.tar.gz | tar xz -C /usr/local/bin/v2ray-plugin_linux_arm7  v2ray-plugin_linux_arm7 \
 
-USER nobody
+    USER nobody
 
 CMD exec ss-server \
     -s $SERVER_ADDR \
